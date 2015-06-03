@@ -36,7 +36,7 @@ void setupPixeFormat(HDC hdc) {
 
 // 全局变量: 
 HINSTANCE hInst;								// 当前实例
-TCHAR szTitle[MAX_LOADSTRING];					// 标题栏文本
+TCHAR szTitle[MAX_LOADSTRING];  				// 标题栏文本
 TCHAR szWindowClass[MAX_LOADSTRING];			// 主窗口类名
 
 // 此代码模块中包含的函数的前向声明: 
