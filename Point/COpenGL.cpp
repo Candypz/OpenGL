@@ -43,6 +43,7 @@ void COpenGL::setupProjection(int width, int height) {
     m_windowHeight = height;
 }
 
+
 void COpenGL::prepare(float dt) {
     m_angle = m_angle + 0.1f;
     if (m_angle >= 360.0f) {
