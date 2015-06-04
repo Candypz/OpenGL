@@ -30,12 +30,18 @@
     <ClInclude Include="Text1.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="COpenGL.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Text1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="COpenGL.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

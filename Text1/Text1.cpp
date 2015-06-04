@@ -5,12 +5,15 @@
 #include "Text1.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
+#include "COpenGL.h"
 
 #define MAX_LOADSTRING 100
 
 HDC g_HDC;
 HWND g_hWnd;
-float angle = 0.0f;
+bool exiting = false;
+
+COpenGL *g_glRender = NULL;
 
 void setupPixeFormat(HDC hdc) {
     int nPixelFormat;//像素格式
@@ -56,7 +59,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
     MSG msg;
     HACCEL hAccelTable;
 
-    bool done;
+    g_glRender = new COpenGL;
 
     // 初始化全局字符串
     LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -68,39 +71,24 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     }
 
+    g_glRender->init();
+
     hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_TEXT1));
 
-    done = false;
-    while (!done) {
-        PeekMessage(&msg, g_hWnd, NULL, NULL, PM_REMOVE);
-        if (msg.message == WM_QUIT) {
-            done = true;
-        }
-        else {
-            //opengl绘制
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            glLoadIdentity();
+    while (!exiting) {
+        g_glRender->prepare(0.0f);
+        g_glRender->render();
 
-            angle = angle + 0.1f;
-            if (angle >= 360.0f) {
-                angle = 0.0f;
+        SwapBuffers(g_HDC);
+        while (PeekMessage(&msg, g_hWnd, NULL, NULL, PM_NOREMOVE)) {
+
+            if (!GetMessage(&msg, NULL, 0, 0)) {
+                exiting = true;
+                break;
             }
-
-            glTranslatef(0.0f, 0.0f, -5.0f);
-            glRotatef(angle, 0.0f, 0.0f, 1.0f);
-
-            glColor3f(1.0f, 0.0f, 0.0f);
-            glBegin(GL_TRIANGLES);
-
-            glVertex3f(0.0f, 0.0f, 0.0f);
-            glVertex3f(1.0f, 0.0f, 0.0f);
-            glVertex3f(1.0f, 1.0f, 0.0f);
-
-            glEnd();
-
-            SwapBuffers(g_HDC);
             TranslateMessage(&msg);
             DispatchMessage(&msg);
+
         }
     }
 
@@ -191,24 +179,26 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             hRC = wglCreateContext(hdc);//opengl绘制
             wglMakeCurrent(hdc, hRC);
             break;
-
+        case WM_KEYDOWN:
+            int fwKeys;
+            LPARAM keyData;
+            fwKeys = (int)wParam;
+            keyData = lParam;
+            switch (fwKeys) {
+                case VK_ESCAPE:
+                    PostQuitMessage(0);
+                    break;
+                default:
+                    break;
+            }
+            break;
         case WM_COMMAND:
             wmId = LOWORD(wParam);
             wmEvent = HIWORD(wParam);
         case WM_SIZE:
             height = HIWORD(lParam);
             width = LOWORD(lParam);
-            if (height == 0) {
-                height = 1;
-            }
-            glViewport(0, 0, width, height);
-            glMatrixMode(GL_PROJECTION);//投影矩阵
-            glLoadIdentity();//复位
-
-            gluPerspective(45.0f, (GLfloat)width / (GLfloat)height, 1.0f, 1000.0f);
-
-            glMatrixMode(GL_MODELVIEW);//模型视图矩阵
-            glLoadIdentity();
+            g_glRender->setupProjection(width, height);
             break;
         case WM_PAINT:
             hdc = BeginPaint(hWnd, &ps);
