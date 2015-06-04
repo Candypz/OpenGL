@@ -56,17 +56,17 @@ void COpenGL::render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
+    gluLookAt(0.0f, 0.0f, 6.0f,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f);
 
-
-    glTranslatef(0.0f, 0.0f, -5.0f);
+    //glTranslatef(0.0f, 0.0f, -5.0f);
     glRotatef(m_angle, 0.0f, 0.0f, 1.0f);
 
+    glPointSize(30.0f);
     glColor3f(1.0f, 0.0f, 0.0f);
-    glBegin(GL_TRIANGLES);
+
+    glBegin(GL_POINTS);
 
     glVertex3f(0.0f, 0.0f, 0.0f);
-    glVertex3f(1.0f, 0.0f, 0.0f);
-    glVertex3f(1.0f, 1.0f, 0.0f);
 
     glEnd();
 

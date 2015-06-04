@@ -13,8 +13,7 @@ HDC g_HDC;
 HWND g_hWnd;
 bool exiting = false;
 
-static HDC hdc;
-static HGLRC hRC;
+
 
 
 COpenGL *g_glRender = NULL;
@@ -170,37 +169,22 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
 //  WM_DESTROY	- 发送退出消息并返回
 //
 //
-void glRender() {
-    g_HDC = hdc;
-    setupPixeFormat(hdc);
-    hRC = wglCreateContext(hdc);//opengl绘制
-    wglMakeCurrent(hdc, hRC);
-}
 
-DWORD WINAPI threadFunc(LPVOID lpRender) {
-    glRender();
-
-    return 0;
-}
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     int wmId, wmEvent;
     PAINTSTRUCT ps;
-//     static HDC hdc;
-//     static HGLRC hRC;
+    static HDC hdc;
+    static HGLRC hRC;
     int height, width;
 
     switch (message) {
         case WM_CREATE:
             hdc = GetDC(hWnd);
             g_HDC = hdc;
-            //             setupPixeFormat(hdc);
-            //             hRC = wglCreateContext(hdc);//opengl绘制
-            //             wglMakeCurrent(hdc, hRC);
-            HANDLE hRender = ::CreateThread(NULL, 0, &threadFunc, NULL, 0, NULL);
-            glRender();
-            ::WaitForSingleObject(hRender, INFINITE);
-            ::CloseHandle(hRender);
+            setupPixeFormat(hdc);
+            hRC = wglCreateContext(hdc);//opengl绘制
+            wglMakeCurrent(hdc, hRC);
             break;
         case WM_KEYDOWN:
             int fwKeys;
