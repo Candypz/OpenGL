@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "winOpenGL", "Text1\Text1.vc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Point", "Point\Point.vcxproj", "{280B70B1-1927-4F74-A012-B68875555BE9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Triangle", "Triangle\Triangle.vcxproj", "{7E157C61-8D7E-41F9-8435-D8C475A33459}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -21,6 +23,10 @@ Global
 		{280B70B1-1927-4F74-A012-B68875555BE9}.Debug|Win32.Build.0 = Debug|Win32
 		{280B70B1-1927-4F74-A012-B68875555BE9}.Release|Win32.ActiveCfg = Release|Win32
 		{280B70B1-1927-4F74-A012-B68875555BE9}.Release|Win32.Build.0 = Release|Win32
+		{7E157C61-8D7E-41F9-8435-D8C475A33459}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7E157C61-8D7E-41F9-8435-D8C475A33459}.Debug|Win32.Build.0 = Debug|Win32
+		{7E157C61-8D7E-41F9-8435-D8C475A33459}.Release|Win32.ActiveCfg = Release|Win32
+		{7E157C61-8D7E-41F9-8435-D8C475A33459}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

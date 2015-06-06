@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "Text1.h"
+#include "Triangle.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "COpenGL.h"
@@ -66,7 +66,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
     // 初始化全局字符串
     LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-    LoadString(hInstance, IDC_TEXT1, szWindowClass, MAX_LOADSTRING);
+    LoadString(hInstance, IDC_TRIANGLE, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
 
     // 执行应用程序初始化: 
@@ -76,7 +76,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
     g_glRender->init();
 
-    hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_TEXT1));
+    hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_TRIANGLE));
 
     while (!exiting) {
         g_glRender->prepare(0.0f);
@@ -115,7 +115,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance) {
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = hInstance;
-    wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_TEXT1));
+    wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDC_TRIANGLE));
     wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
     wcex.hbrBackground = NULL;//(HBRUSH)(COLOR_WINDOW + 1);
     wcex.lpszMenuName = NULL;
